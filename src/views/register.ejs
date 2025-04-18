@@ -1,0 +1,71 @@
+<%- include('header', {title: 'Register'}) %>
+
+<div class="register flex flex-col min-h-screen items-center justify-center">
+    <form action="#" class="flex flex-col items-center justify-between p-5 gap-7 bg-gray-300 rounded min-h-[20rem] w-full md:w-fit text-2xl">
+        <h1 class="text-4xl">
+            Register
+        </h1>
+        <div class="flex items-center justify-between w-full gap-4">
+            <div class="form-control flex flex-col gap-3">
+                <label for="name">Full name</label>
+                <input type="text" name="name" id="name" class="p-2 px-3 bg-white outline-none focus:border-gray-400 focus:border-2 transition-all" placeholder="Name e.x John" autofocus autocomplete="off">
+            </div>
+            <div class="form-control flex flex-col gap-3">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" class="p-2 px-3 bg-white outline-none focus:border-gray-400 focus:border-2 transition-all" placeholder="Email e.x Example@email.com" autofocus autocomplete="off">
+            </div>
+        </div>
+        <div class="flex items-center justify-between w-full gap-4">
+            <div class="form-control flex flex-col gap-3">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="p-2 px-3 bg-white outline-none focus:border-gray-400 focus:border-2 transition-all" placeholder="Your password" autocomplete="off">
+            </div>
+            <div class="form-control flex flex-col gap-3">
+                <label for="re-password">Password</label>
+                <input type="password" name="re-password" id="re-password" class="p-2 px-3 bg-white outline-none focus:border-gray-400 focus:border-2 transition-all" placeholder="Re-type your password" autocomplete="off">
+            </div>
+        </div>
+        <button type="submit" onclick="handleSubmit(event)" class="bg-gray-400/50 hover:bg-gray-400/80 transition-colors py-2 px-5 cursor-pointer rounded">
+            Login
+        </button>
+    </form>
+</div>
+
+<%- include('footer') %>
+
+
+<script>
+    const handleSubmit = async (event)=>{
+        event.preventDefault()
+        const name = document.getElementById('name').value
+        const email = document.getElementById('email').value
+        const password = document.getElementById('password').value
+        const re_password = document.getElementById('re-password').value
+
+        if(password !== re_password){
+            alert('Error: Password doesn\'t match!.')
+        }
+
+        try {
+            const userData = {
+                name: name,
+                email: email,
+                password: password
+            }
+            const response = await fetch('/users/register', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(userData)
+            })
+            const result = await response.json()
+            if(response.ok){
+                alert(result.message)
+                window.location.href = result.redirect
+            }else{
+                alert(result.message)
+            }
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+</script>

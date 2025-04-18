@@ -1,0 +1,12 @@
+<%- include('header', {title: '404'}) %>
+
+<div class="404 min-h-screen w-full flex flex-col gap-3 items-center justify-center mx-auto container">
+    <div class="content flex items-center justify-center gap-5">
+        <strong class="text-3xl font-bold text-red-500">404</strong>
+        <%= '|' %>
+        <p>Oops! The page you’re looking for doesn’t exist.</p>
+    </div>
+    <a href="/" class="bg-gray-400 hover:bg-gray-500 transition-colors font-bold p-3 rounded text-xl">Go back home</a>
+</div>
+
+<%- include('footer') %>

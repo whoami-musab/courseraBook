@@ -1,0 +1,55 @@
+<%- include('header', {title: 'Login'}) %>
+
+<div class="login flex flex-col min-h-screen items-center justify-center">
+    <form action="#" class="flex flex-col items-center justify-between p-5 gap-7 bg-gray-300 rounded min-h-[20rem] w-full md:w-fit text-2xl">
+        <h1 class="text-4xl">
+            Login
+        </h1>
+        <div class="form-control flex flex-col gap-3">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" class="p-2 px-3 bg-white outline-none focus:border-gray-400 focus:border-2 transition-all" placeholder="Username or email" autofocus autocomplete="off">
+        </div>
+        <!-- <hr class="bg-gray-400 size-0.5 w-full my-5"> -->
+        <div class="form-control flex flex-col gap-3">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" class="p-2 px-3 bg-white outline-none focus:border-gray-400 focus:border-2 transition-all" placeholder="Password" autocomplete="off">
+        </div>
+        <button type="submit" onclick="handleSubmit(event)" class="bg-gray-400/50 hover:bg-gray-400/80 transition-colors py-2 px-5 cursor-pointer rounded">
+            Login
+        </button>
+    </form>
+</div>
+
+<%- include('footer') %>
+
+
+<script>
+    const handleSubmit = async (event)=>{
+        event.preventDefault()
+        const username = document.getElementById('username').value
+        const password = document.getElementById('password').value
+
+        try {
+            const userData = {
+                username: username,
+                password: password
+            }
+            const response = await fetch('/users/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(userData)
+            })
+            const result = await response.json()
+            if(response.ok){
+                window.localStorage.setItem('id', result.userData.id)
+                window.localStorage.setItem('token', result.userData.token)
+                alert(result.message)
+                window.location.href = result.redirect
+            }else{
+                alert(result.message)
+            }
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+</script>

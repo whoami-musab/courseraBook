@@ -1,0 +1,53 @@
+<%- include('header', {title: 'All books', books}) %>
+
+<div class="add-book mx-auto container flex flex-col items-center justify-center">
+    <h1 class="text-4xl py-3">
+        <%= books.length > 0 ? 'All Books' : 'No available Books' %>
+    </h1>
+    <ul class="flex flex-col p-3 w-full md:w-fit bg-gray-400">
+        <% if (books.length > 0) { %>
+        <div class="bg-gray-300 rounded-md flex flex-col gap-5 text-3xl p-5">
+            <% books.forEach(bok => { %>
+                <li class="flex items-center justify-between">
+                    <p>
+                        Author :
+                    </p>
+                    <strong>
+                        <%= bok.author === user.name ? 'Your book' : bok.author %>
+                    </strong>
+                </li>
+                <li class="flex items-center justify-between">
+                    <p>Title :</p>
+                    <strong>
+                        <%= bok.title %>
+                    </strong>
+                </li>
+                <li class="flex items-center justify-between gap-5">
+                    <p>
+                        Description
+                    </p>
+                    <%= ':' %>
+                    <strong>
+                        <%= bok.description %>
+                    </strong>
+                </li>
+                <li class="flex items-center justify-between">
+                    <p>
+                        ISBN :
+                    </p>
+                    <strong>
+                        <%= bok.ISBN %>
+                    </strong>
+                </li>
+                <div class="details flex gap-3 items-center">
+                    <a href="/books/book/<%= bok.ISBN %>" class="bg-gray-400/80 hover:bg-gray-400 transition-colors py-1 px-3 rounded-md w-fit">Details - ISBN</a>
+                    <a href="/books/book/<%= bok.ISBN %>" class="bg-gray-400/80 hover:bg-gray-400 transition-colors py-1 px-3 rounded-md w-fit">Details - Title</a>
+                </div>
+                <hr class="size-0.5 bg-gray-400 w-full">
+                <% }) %>
+        </div>
+        <% } %>
+    </ul>
+</div>
+
+<%- include('footer') %>

@@ -1,0 +1,44 @@
+<%- include('header', {title: bookDetails.title, bookDetails}) %>
+
+<div class="my-book mx-auto container flex flex-col min-h-screen items-center justify-center gap-5">
+    <h1 class="text-4xl">
+        <%= bookDetails.title %>
+    </h1>
+    <ul class="flex flex-col p-3">
+            <div class="bg-gray-300 rounded-md flex flex-col gap-5 text-3xl p-5 my-3 shadow">
+                    <li class="flex items-center justify-between">
+                        <p>
+                            Author :
+                        </p>
+                        <strong>
+                            <%= bookDetails.author === user.name ? 'Your book' : bookDetails.author %>
+                        </strong>
+                    </li>
+                    <li class="flex items-center justify-between">
+                        <p>Title :</p>
+                        <strong>
+                            <%= bookDetails.title %>
+                        </strong>
+                    </li>
+                    <li class="flex items-center justify-between gap-5">
+                        <p>
+                            Description
+                        </p>
+                        <%= ':' %>
+                        <strong>
+                            <%= bookDetails.description %>
+                        </strong>
+                    </li>
+                    <li class="flex items-center justify-between">
+                        <p>
+                            ISBN :
+                        </p>
+                        <strong>
+                            <%= bookDetails.ISBN %>
+                        </strong>
+                    </li>
+            </div>
+    </ul>
+</div>
+
+<%- include('footer') %>
